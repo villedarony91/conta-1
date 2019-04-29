@@ -13,24 +13,39 @@
               <v-container>
                 <v-layout row wrap>
                   <v-flex sm2>
-                    <v-text-field label="# de asiento"></v-text-field>
+                    <v-text-field
+                      label="# de asiento"
+                      v-model="asiento"
+                    ></v-text-field>
                   </v-flex>
                   <v-flex sm2>
-                    <v-text-field label="fecha"></v-text-field>
+                    <v-text-field label="fecha" v-model="fecha"></v-text-field>
                   </v-flex>
                   <v-flex sm7>
-                    <v-text-field label="Referencia"></v-text-field>
+                    <v-text-field
+                      label="Referencia"
+                      v-model="referencia"
+                    ></v-text-field>
                   </v-flex>
                   <v-flex sm1>
-                    <v-text-field label="documento"></v-text-field>
+                    <v-text-field
+                      label="documento"
+                      v-model="documento"
+                    ></v-text-field>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
                   <v-flex sm6>
-                    <v-text-field label="observacion"></v-text-field>
+                    <v-text-field
+                      label="observacion"
+                      v-model="observacion"
+                    ></v-text-field>
                   </v-flex>
                   <v-flex sm6>
-                    <v-text-field label="detalle"></v-text-field>
+                    <v-text-field
+                      label="detalle"
+                      v-model="detalle"
+                    ></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -142,6 +157,12 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
+      asiento: '',
+      fecha: '',
+      referencia: '',
+      observacion: '',
+      detalle: '',
+      documento: '',
       writeSuccessful: false,
       readSuccessful: false,
       texto: [],
@@ -201,7 +222,14 @@ export default {
   methods: {
     saveOnStore() {
       this.$store.commit('diario/setDiario', {
-        data: 1,
+        header: [
+          this.asiento,
+          this.fecha,
+          this.referencia,
+          this.observacion,
+          this.detalle,
+          this.documento
+        ],
         operations: this.operations
       })
     },

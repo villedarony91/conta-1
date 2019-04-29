@@ -1,14 +1,30 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex> Proyecto Contabilidad 1 </v-flex>
-    <v-autocomplete
-      v-model="selected"
-      :items="texto"
-      item-text="name"
-      item.value="id"
-    >
-    </v-autocomplete>
-  </v-layout>
+  <div>
+    <v-container>
+      <v-layout row wrap>
+        <v-flex sm12>
+          <v-toolbar color="primary">
+            Ingresa tu Asiento
+          </v-toolbar>
+        </v-flex>
+        <v-card>
+          <v-layout row wrap>
+            <v-flex sm12>
+              <v-text-field></v-text-field>
+              <v-text-field></v-text-field>
+              <v-autocomplete
+                v-model="selected"
+                :items="texto"
+                item-text="name"
+                item.value="id"
+              >
+              </v-autocomplete>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </div>
 </template>
 
 <script>

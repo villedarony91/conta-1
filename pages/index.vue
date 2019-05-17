@@ -233,6 +233,13 @@ export default {
         },
         operations: this.operations
       })
+      this.asiento = ''
+      this.fecha = ''
+      this.referencia = ''
+      this.documento = ''
+      this.observacion = ''
+      this.detalle = ''
+      this.operations = []
     },
     showDiario() {
       this.$router.push({

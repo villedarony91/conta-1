@@ -223,14 +223,14 @@ export default {
   methods: {
     saveOnStore() {
       this.$store.commit('diario/setDiario', {
-        header: [
-          this.asiento,
-          this.fecha,
-          this.referencia,
-          this.observacion,
-          this.detalle,
-          this.documento
-        ],
+        header: {
+          asiento: this.asiento,
+          fecha: this.fecha,
+          referencia: this.referencia,
+          observacion: this.observacion,
+          detalle: this.detalle,
+          documento: this.documento
+        },
         operations: this.operations
       })
     },

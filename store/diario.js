@@ -1,8 +1,14 @@
-import Vuex from 'vuex'
+export const state = () => ({
+  diario: []
+})
 
 export const mutations = {
   setDiario(state, dailyOperations) {
-    state.diario = dailyOperations
+    // eslint-disable-next-line
+    console.log(state.diario)
+    // eslint-disable-next-line
+    console.log(dailyOperations)
+    state.diario.push(dailyOperations)
   },
   remove(state, { todo }) {
     state.list.splice(state.list.indexOf(todo), 1)
@@ -11,24 +17,9 @@ export const mutations = {
     todo.done = !todo.done
   }
 }
-/*eslint-disable */
-new Vuex.Store({
-  state: {
-    diario: []
-  },
-  mutations: {
-    setDiario(state, dailyOperations) {
-      state.diario.push(dailyOperations)
-    }
-  },
-  actions: {
-    setDiario(vuexContext, dailyOperations) {
-      vuexContext.commit('setDiario', dailyOperations)
-    }
-  },
-  getters: {
-    loadedDiario(state) {
-      return state.diario
-    }
+
+export const getters = {
+  loadedDiario(state) {
+    return state.diario
   }
-})
+}

@@ -61,7 +61,9 @@
                       <v-btn color="primary" dark @click="saveOnStore"
                         >Guardar</v-btn
                       >
-                      <v-btn color="primary">Ver libro Diario</v-btn>
+                      <v-btn color="primary" @click="showDiario"
+                        >Ver libro Diario</v-btn
+                      >
                     </template>
                     <v-card>
                       <v-card-title>
@@ -153,7 +155,6 @@
 
 <script>
 import axios from 'axios'
-import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -233,9 +234,11 @@ export default {
         operations: this.operations
       })
     },
-    ...mapMutations({
-      toggle: 'todos/toggle'
-    }),
+    showDiario() {
+      this.$router.push({
+        path: 'diario'
+      })
+    },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)

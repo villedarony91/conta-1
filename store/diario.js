@@ -18,7 +18,7 @@ new Vuex.Store({
   },
   mutations: {
     setDiario(state, dailyOperations) {
-      state.diario = dailyOperations
+      state.diario.push(dailyOperations)
     }
   },
   actions: {

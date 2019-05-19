@@ -284,7 +284,7 @@ export default {
   methods: {
     saveOnStore() {
       if (this.operations.length < 1) {
-        this.alertMessage = 'Operaciones'
+        this.alertMessage = 'operaciones'
         this.alertVisible = true
         return
       } else {
@@ -313,9 +313,17 @@ export default {
       this.operations = []
     },
     showDiario() {
-      this.$router.push({
-        path: 'diario'
-      })
+      const data = this.$store.getters['diario/loadedDiario']
+      if (data.length < 1) {
+        this.alertMessage = 'asientos'
+        this.alertVisible = true
+      } else {
+        this.alertMessage = ''
+        this.alertVisible = false
+        this.$router.push({
+          path: 'diario'
+        })
+      }
     },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item)

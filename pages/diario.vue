@@ -102,14 +102,14 @@ export default {
     headers: [
       {
         text: 'Cuenta',
-        align: 'left',
+        align: 'center',
         sortable: false,
         value: 'name'
       },
-      { text: 'Descripcion', value: 'calories' },
-      { text: 'Documento', value: 'fat' },
-      { text: 'Debe', value: 'carbs' },
-      { text: 'Haber', value: 'protein' }
+      { text: 'Descripcion', value: 'calories', align: 'center' },
+      { text: 'Documento', value: 'fat', align: 'center' },
+      { text: 'Debe', value: 'carbs', align: 'center' },
+      { text: 'Haber', value: 'protein', align: 'center' }
     ]
   }),
   created() {

@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex text-xs-center>
-      <h1>Mostrar diario</h1>
+      <h1>Libro Diario</h1>
       <div>
         <v-card v-for="(item, index) in diario" :key="index">
           <v-container dense>
@@ -83,7 +83,6 @@
           </v-container>
         </v-card>
       </div>
-      <li></li>
     </v-flex>
   </v-layout>
 </template>

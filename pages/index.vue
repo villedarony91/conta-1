@@ -46,7 +46,6 @@
                     <v-text-field
                       label="observacion"
                       v-model="observacion"
-                      :error-messages="observacionErrors"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm6>

@@ -20,7 +20,11 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm2>
-                    <v-text-field label="fecha" v-model="fecha"></v-text-field>
+                    <v-text-field
+                      label="fecha"
+                      v-model="fecha"
+                      :error-messages="fechaErrors"
+                    ></v-text-field>
                   </v-flex>
                   <v-flex sm7>
                     <v-text-field
@@ -184,6 +188,7 @@ export default {
       readSuccessful: false,
       texto: [],
       selected: '',
+      requiredMessage: 'es obligatorio',
       dialog: false,
       headers: [
         {
@@ -219,6 +224,40 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? 'Nueva Operación' : 'Editar Operación'
+    },
+    detalleErrors() {
+      const errors = []
+      if (!this.$v.detalle.$dirty) return errors
+      !this.$v.detalle.required &&
+        errors.push('Detalle ' + this.requiredMessage)
+      return errors
+    },
+    asientoErrors() {
+      const errors = []
+      if (!this.$v.asiento.$dirty) return errors
+      !this.$v.asiento.required &&
+        errors.push('Asiento ' + this.requiredMessage)
+      return errors
+    },
+    fechaErrors() {
+      const errors = []
+      if (!this.$v.fecha.$dirty) return errors
+      !this.$v.fecha.required && errors.push('Fecha ' + this.requiredMessage)
+      return errors
+    },
+    referenciaErrors() {
+      const errors = []
+      if (!this.$v.referencia.$dirty) return errors
+      !this.$v.referencia.required &&
+        errors.push('Referencia ' + this.requiredMessage)
+      return errors
+    },
+    documentoErrors() {
+      const errors = []
+      if (!this.$v.documento.$dirty) return errors
+      !this.$v.documento.required &&
+        errors.push('Documento ' + this.requiredMessage)
+      return errors
     }
   },
 
@@ -238,6 +277,8 @@ export default {
 
   methods: {
     saveOnStore() {
+      this.$v.$touch()
+      if (this.$v.$invalid) return
       this.$store.commit('diario/setDiario', {
         header: {
           asiento: this.asiento,

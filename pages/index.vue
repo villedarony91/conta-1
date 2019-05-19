@@ -1,6 +1,9 @@
 <template>
   <div>
     <v-container dense>
+      <v-alert :value="alertVisible" color="error" icon="warning" outline>
+        {{ 'No existen ' + alertMessage }}
+      </v-alert>
       <v-layout row wrap>
         <v-flex>
           <v-card>
@@ -191,6 +194,8 @@ export default {
       selected: '',
       requiredMessage: 'es obligatorio',
       dialog: false,
+      alertMessage: '',
+      alertVisible: false,
       headers: [
         {
           text: 'Cuenta',
@@ -278,6 +283,14 @@ export default {
 
   methods: {
     saveOnStore() {
+      if (this.operations.length < 1) {
+        this.alertMessage = 'Operaciones'
+        this.alertVisible = true
+        return
+      } else {
+        this.alertMessage = ''
+        this.alertVisible = false
+      }
       this.$v.$touch()
       if (this.$v.$invalid) return
       this.$store.commit('diario/setDiario', {

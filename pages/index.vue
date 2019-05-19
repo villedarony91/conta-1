@@ -16,6 +16,7 @@
                     <v-text-field
                       label="# de asiento"
                       v-model="asiento"
+                      :error-messages="asientoErrors"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm2>
@@ -25,12 +26,14 @@
                     <v-text-field
                       label="Referencia"
                       v-model="referencia"
+                      :error-messages="referenciaErrors"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm1>
                     <v-text-field
                       label="documento"
                       v-model="documento"
+                      :error-messages="documentoErrors"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -39,12 +42,14 @@
                     <v-text-field
                       label="observacion"
                       v-model="observacion"
+                      :error-messages="observacionErrors"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm6>
                     <v-text-field
                       label="detalle"
                       v-model="detalle"
+                      :error-messages="detalleErrors"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -155,7 +160,18 @@
 
 <script>
 import axios from 'axios'
+import { validationMixin } from 'vuelidate'
+import { required } from 'vuelidate/lib/validators'
 export default {
+  mixins: [validationMixin],
+  validations: {
+    asiento: { required },
+    fecha: { required },
+    referencia: { required },
+    observacion: { required },
+    detalle: { required },
+    documento: { required }
+  },
   data() {
     return {
       asiento: '',
@@ -257,7 +273,6 @@ export default {
       confirm('Are you sure you want to delete this item?') &&
         this.operations.splice(index, 1)
     },
-
     close() {
       this.dialog = false
       setTimeout(() => {
@@ -265,13 +280,28 @@ export default {
         this.editedIndex = -1
       }, 300)
     },
-
     save() {
+      this.operations.pop()
       if (this.editedIndex > -1) {
         Object.assign(this.operations[this.editedIndex], this.editedItem)
       } else {
         this.operations.push(this.editedItem)
       }
+      // eslint-disable-next-line
+      let debe = 0.0
+      // eslint-disable-next-line
+      let haber = 0.0
+      for (const keyOp in this.operations) {
+        for (const field in this.operations[keyOp]) {
+          if (field === 'debe') {
+            debe += parseFloat(+this.operations[keyOp][field])
+          }
+          if (field === 'haber') {
+            haber += Number(this.operations[keyOp][field])
+          }
+        }
+      }
+      this.operations.push({ debe: debe, haber: haber })
       this.close()
     }
   }

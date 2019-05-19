@@ -65,14 +65,14 @@
                       >
                         <template v-slot:items="props">
                           <td>{{ props.item.cuenta }}</td>
-                          <td class="text-xs-right">
+                          <td class="text-xs-center">
                             {{ props.item.descripcion }}
                           </td>
-                          <td class="text-xs-right">
+                          <td class="text-xs-center">
                             {{ props.item.documento }}
                           </td>
-                          <td class="text-xs-right">{{ props.item.debe }}</td>
-                          <td class="text-xs-right">{{ props.item.haber }}</td>
+                          <td class="text-xs-center">{{ props.item.debe }}</td>
+                          <td class="text-xs-center">{{ props.item.haber }}</td>
                         </template>
                       </v-data-table>
                     </v-flex>

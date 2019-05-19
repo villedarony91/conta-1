@@ -21,7 +21,7 @@
                   </v-flex>
                   <v-flex sm2>
                     <v-text-field
-                      label="fecha"
+                      label="Fecha"
                       v-model="fecha"
                       :error-messages="fechaErrors"
                     ></v-text-field>
@@ -35,7 +35,7 @@
                   </v-flex>
                   <v-flex sm1>
                     <v-text-field
-                      label="documento"
+                      label="Documento"
                       v-model="documento"
                       :error-messages="documentoErrors"
                     ></v-text-field>
@@ -44,13 +44,13 @@
                 <v-layout row wrap>
                   <v-flex sm6>
                     <v-text-field
-                      label="observacion"
+                      label="Observacion"
                       v-model="observacion"
                     ></v-text-field>
                   </v-flex>
                   <v-flex sm6>
                     <v-text-field
-                      label="detalle"
+                      label="Detalle"
                       v-model="detalle"
                       :error-messages="detalleErrors"
                     ></v-text-field>
@@ -107,11 +107,13 @@
                               <v-text-field
                                 v-model="editedItem.debe"
                                 label="Debe"
+                                @input="cleanHaber"
                               ></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm6 md6>
                               <v-text-field
                                 v-model="editedItem.haber"
+                                @input="cleanDebe"
                                 label="Haber"
                               ></v-text-field>
                             </v-flex>
@@ -138,10 +140,10 @@
                 >
                   <template v-slot:items="props">
                     <td>{{ props.item.cuenta }}</td>
-                    <td class="text-xs-right">{{ props.item.descripcion }}</td>
-                    <td class="text-xs-right">{{ props.item.documento }}</td>
-                    <td class="text-xs-right">{{ props.item.debe }}</td>
-                    <td class="text-xs-right">{{ props.item.haber }}</td>
+                    <td class="text-xs-center">{{ props.item.descripcion }}</td>
+                    <td class="text-xs-center">{{ props.item.documento }}</td>
+                    <td class="text-xs-center">{{ props.item.debe }}</td>
+                    <td class="text-xs-center">{{ props.item.haber }}</td>
                     <td class="justify-center layout px-0">
                       <v-icon small class="mr-2" @click="editItem(props.item)">
                         edit
@@ -192,15 +194,15 @@ export default {
       headers: [
         {
           text: 'Cuenta',
-          align: 'left',
+          align: 'center',
           sortable: false,
           value: 'name'
         },
-        { text: 'Descripcion', value: 'calories' },
-        { text: 'Documento', value: 'fat' },
-        { text: 'Debe', value: 'carbs' },
-        { text: 'Haber', value: 'protein' },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Descripcion', align: 'center', value: 'calories' },
+        { text: 'Documento', align: 'center', value: 'fat' },
+        { text: 'Debe', align: 'center', value: 'carbs' },
+        { text: 'Haber', align: 'center', value: 'protein' },
+        { text: 'Actions', align: 'center', value: 'name', sortable: false }
       ],
       operations: [],
       editedIndex: -1,
@@ -341,8 +343,14 @@ export default {
           }
         }
       }
-      this.operations.push({ debe: debe, haber: haber })
+      this.operations.push({ cuenta: 'Total', debe: debe, haber: haber })
       this.close()
+    },
+    cleanDebe() {
+      this.editedItem.debe = 0
+    },
+    cleanHaber() {
+      this.editedItem.haber = 0
     }
   }
 }
